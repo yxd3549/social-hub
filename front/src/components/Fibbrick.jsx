@@ -66,7 +66,6 @@ class Fibbrick extends React.Component {
         }
         return (
         <div>
-            <p>This is the Fibbrick Page</p>
             <div id="loader">Loading....</div>
             <div id="fibbage-container">
                 <Paper elevation={3} id="prompt">
@@ -79,7 +78,7 @@ class Fibbrick extends React.Component {
             <div id="choices">
                 {items}
             </div>
-            <button onClick={() => this.returnToMenu()}>Return to Menu</button>
+            <Button variant="contained" color="primary" onClick={() => this.returnToMenu()}>Return to Menu</Button>
         </div>)
     }
 }
