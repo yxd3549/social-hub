@@ -5,15 +5,14 @@ import React from 'react';
 import Menu from './components/Menu';
 import Fibbrick from './components/Fibbrick';
 import Youtube from './components/Youtube';
-
-
+import Login from './components/Login';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      currentActivity: 'Menu'
+      currentActivity: 'Login'
     }
 
 
@@ -33,6 +32,9 @@ class App extends React.Component {
   render() {
     let currentComponent = null;
     switch(this.state.currentActivity) {
+      case "Login":
+        currentComponent = <Login socket={this.socket}/>
+        break;
       case "Menu":
         console.log("Switching to Menu")
         currentComponent = <Menu socket={this.socket}/>;

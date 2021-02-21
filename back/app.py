@@ -22,6 +22,12 @@ fibbage_alternates = ""
 fibbage_user_answers = {}
 fibbage_user_scores = {}
 
+@socketio.on('login')
+def login(username):
+    users.append(username)
+    emit("change-activity", "Menu")
+    print(users)
+
 
 def start_fibbage_game():
     current_game_data = random.choice(FIBBAGE_DATA)
