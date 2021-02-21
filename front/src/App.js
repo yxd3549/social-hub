@@ -1,25 +1,61 @@
-import logo from './logo.svg';
 import './App.css';
+import io from "socket.io-client";
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Menu from './components/Menu';
+import Fibbrick from './components/Fibbrick';
+import Youtube from './components/Youtube';
+
+
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentActivity: 'Menu'
+    }
+
+
+    this.socket = io.connect('localhost:5000');
+  }
+
+  componentDidMount() {
+    this.socket.on("change-activity", (game) => {
+      console.log(`Recieved request to change to ${game}`)
+      this.setState(prevState => {
+        return {currentActivity: game}
+      })
+    })
+  }
+
+
+  render() {
+    let currentComponent = null;
+    switch(this.state.currentActivity) {
+      case "Menu":
+        console.log("Switching to Menu")
+        currentComponent = <Menu socket={this.socket}/>;
+        break;
+      case "Fibbrick":
+        console.log("Switching to Fibbrick")
+        currentComponent = <Fibbrick socket={this.socket}/>;
+        break;
+      case "Youtube":
+        console.log("Switching to Youtube")
+        currentComponent = <Youtube socket={this.socket}/>;
+        break;
+      default:
+        currentComponent = Menu;
+    } 
+
+    return (
+      <div>
+        {currentComponent}
+      </div>
+
+    );
+  }
 }
 
 export default App;
