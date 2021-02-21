@@ -12,11 +12,14 @@ import thunkMidleware from "redux-thunk"
 import { combineReducers, createStore, applyMiddleware } from "redux"
 import { ConferenceRoom, VoxeetProvider } from "@voxeet/react-components"
 import "@voxeet/react-components/dist/voxeet-react-components.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container} from 'react-bootstrap';
+
 
 const settings = {
   consumerKey: 'QCcMg9I76NPfCgls2CPY4A==',
   consumerSecret: '68ygdCLzwcGBla7QF9-bs3h2nHmOobUCkE9L58ngMHA=',
-  conferenceAlias: 'RoomName'
+  conferenceAlias: 'Avengers meeting'
 }
 
 const reducers = combineReducers({
@@ -86,10 +89,12 @@ class App extends React.Component {
     }
 
     return (
+      <>
       <div>
-        {currentComponent}
-        {sidebar}
+          {currentComponent}
+          {sidebar}
       </div>
+      </>
     );
   }
 }
