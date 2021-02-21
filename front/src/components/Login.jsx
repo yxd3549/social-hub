@@ -9,10 +9,10 @@ class Login extends React.Component {
            socket: props.socket, 
         };
     }
-    
+
     login() {
         const textField = document.getElementById("username");
-        console.log(textField.value);
+        window.localStorage.setItem('username', textField.value);        
         this.state.socket.emit("login", textField.value);
     }
 

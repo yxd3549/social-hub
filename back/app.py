@@ -16,18 +16,16 @@ FIBBAGE_DATA = None
 with open("fibbage_data.json") as f:
     FIBBAGE_DATA = json.load(f)
 
-fibbage_prompt = ""
+fibbage_prompt = "Yehaw"
 fibbage_answer = ""
 fibbage_alternates = ""
-fibbage_user_answers = {}
+fibbage_user_lies = {}
 fibbage_user_scores = {}
 
 @socketio.on('login')
 def login(username):
     users.append(username)
     emit("change-activity", "Menu")
-    print(users)
-
 
 def start_fibbage_game():
     current_game_data = random.choice(FIBBAGE_DATA)
@@ -36,21 +34,23 @@ def start_fibbage_game():
     fibbage_alternates = current_game_data["alternates"]
 
     # Notify Everyone of the Prompt
-    socketio.emit("fibbage_prompt", fibbage_prompt)
+    socketio.emit("fibbage-prompt", fibbage_prompt)
 
 
-
-@socketio.on('fibbage_response')
-def receive_fibbage_response(user, answer):
+@socketio.on('fibbage-response')
+def receive_fibbage_response(data):
     # add user response to the list AND check if everyone answered
-    fibbage_user_answers[user] = answer
-
+    global fibbage_user_lies
+    fibbage_user_lies[data["username"]] = data["lie"]
+    if len(fibbage_user_lies.keys()) == len(users):
+        socketio.emit("fibbage-lies", fibbage_user_lies)
+        fibbage_user_lies = {}
 
 @socketio.on('select-activity')
 def select_activity(game):
+    socketio.emit("change-activity", game)
     if game == "Fibbrick":
         start_fibbage_game()
-    socketio.emit("change-activity", game)
 
 
 

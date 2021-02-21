@@ -1,3 +1,19 @@
+#fibbage-container {
+  text-align: center;
+}
+
+#lie {
+  width: 60%;
+}
+
+#prompt {
+  width: 60%;
+  text-align: center;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 1.3em;
+}
+
 .App {
   text-align: center;
 }
