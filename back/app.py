@@ -32,6 +32,7 @@ def start_fibbage_game():
     fibbage_prompt = current_game_data["question"]
     fibbage_answer = current_game_data["answer"]
     fibbage_alternates = current_game_data["alternates"]
+    fibbage_user_lies = {}
 
     # Notify Everyone of the Prompt
     socketio.emit("fibbage-prompt", fibbage_prompt)
@@ -42,9 +43,15 @@ def receive_fibbage_response(data):
     # add user response to the list AND check if everyone answered
     global fibbage_user_lies
     fibbage_user_lies[data["username"]] = data["lie"]
-    if len(fibbage_user_lies.keys()) == len(users):
+    global users
+    print(len(users))
+    print(len(fibbage_user_lies.keys()))
+    if len(fibbage_user_lies.keys()) >= len(users):
+        print("All responses in")
         socketio.emit("fibbage-lies", fibbage_user_lies)
         fibbage_user_lies = {}
+
+
 
 @socketio.on('select-activity')
 def select_activity(game):
