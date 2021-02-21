@@ -18,15 +18,17 @@ class Login extends React.Component {
 
     render() {
         return (
-            <Box align="center"
-            >
-                <br/>
-                <TextField variant="outlined" label="Username" id="username"/>
-                <br/><br/>
-                <TextField variant="outlined" label="Room Name"/>
-                <br/><br/>
-                <Button variant="contained" color="primary" onClick={() => this.login()}>Join Room</Button>
-            </Box>);
+            <div style={{position: "fixed", top: "35%", left: "45%"}}>
+                <Box align="center"
+                >
+                    <br/>
+                    <TextField variant="outlined" label="Username" id="username"/>
+                    <br/><br/>
+                    <TextField variant="outlined" label="Room Name"/>
+                    <br/><br/>
+                    <Button variant="contained" color="primary" onClick={() => this.login()}>Join Room</Button>
+                </Box>
+            </div>);
     }
 }
 
