@@ -54,5 +54,14 @@ def select_activity(game):
 
 
 
+
+### YOUTUBE STUFF BELOW ###
+@socketio.on('video_URL')
+def new_video_url(url):
+    socketio.emit("watch_URL", url)
+
+
+
+
 if __name__ == "__main__":
     socketio.run(app, host='127.0.0.1', debug=True)
